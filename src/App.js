@@ -1,23 +1,31 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addTodo } from './redux/reducers';
+import NewForm from './components/NewForm';
+import AddList from './components/AddList';
 
 function App() {
+  const [text, setText] = useState('');
+  const dispatch = useDispatch();
+
+  const handleAction = () => {
+    if(text.trim().length) {
+      dispatch(addTodo({text}));
+      setText('');
+    }
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className='wraper'>
+        <div className='wraper-form'>
+          <h2>Input your tasks</h2>
+          <NewForm value={text} updateText={setText} handleAction={handleAction} />
+        </div>
+        <div className='wraper-list'>
+          <AddList />
+        </div>
+      </div>
     </div>
   );
 }
