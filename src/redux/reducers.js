@@ -9,7 +9,7 @@ const todoSlice = createSlice({
         addTodo(state, action) {
             state.todos.push({
               id: new Date().toISOString(),
-              text: action.payload.text,
+              title: action.payload.title,
             });
         },
         removeTodo(state, action) {
